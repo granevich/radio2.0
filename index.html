@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PlayerAudio</title>
+</head>
+<style>
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+  audio{
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+  }
+    button{
+        width: 100%;
+
+    }
+    progress{
+      width: 100%;
+    }
+    .inner-ur{
+        position: relative;
+    }
+.inner-control{
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 105px;
+    height: 80px;
+}
+
+
+.UR{
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 105px;
+    height: 80px;
+
+}
+    #ur1{
+                position: relative;
+                left: 0;
+        transition:1s;
+        background: url("http://nrcu.gov.ua/images/channel/logo/ur1_logo.jpg") no-repeat;
+        background-size: contain;
+    }#ur2{
+             position: relative;
+             left: 0;
+             transition:1s;
+        background: url("http://nrcu.gov.ua/images/channel/logo/ur2_logo.jpg") no-repeat;
+        background-size: contain;
+    }#ur3{
+                  position: relative;
+                  left: 0;
+                  transition:1s;
+        background: url("http://nrcu.gov.ua/images/channel/logo/ur3_logo.jpg") no-repeat;
+        background-size: contain;
+    }
+</style>
+<body>
+
+
+        <audio id="audio" src="http:///91.218.213.49:8000/ur2-mp3-l" controls></audio>
+
+
+
+        <!--<div class="inner-control">-->
+
+            <!--<button id="play">play</button>-->
+            <!--<progress id='volume' value="1" max="1">-->
+                <!--Текст-->
+            <!--</progress>-->
+
+
+            <!--<button id="volume-">-</button>-->
+            <!--<button id="volume+">+</button>-->
+        <!--</div>-->
+        <img src="http://nrcu.gov.ua/-images/logo.jpg" alt="">
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="inner-ur">
+            <div class='UR'  id="ur1"></div>
+            <div class="inner-control">
+                <button id="play">play</button>
+                <progress id='volume' value="1" max="1"></progress>
+                <button id="volume-">-</button>
+                <button id="volume+">+</button>
+            </div>
+            <div class='UR'  id="ur2"></div>
+            <div class='UR'  id="ur3"></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+<script>
+    window.onload=function () {
+        var tumbler  = true;
+        var audio = document.getElementById('audio');
+        var play = document.getElementById('play');
+        var volUp = document.getElementById('volume+');
+        var volDown = document.getElementById('volume-');
+        var progvolume = document.getElementById('volume');
+
+
+
+        var ur = document.querySelectorAll('.UR');
+        for(var i =0; i<ur.length;i++){
+
+                ur[i].onclick = function () {
+
+                                    for(var i=0; i<ur.length; i++){
+                                       if(ur[i].style.left==='-110px'){
+                                             ur[i].style.left= +0 +'px';
+                                        }
+                                    }
+                                if(this.getAttribute('class')!=='UR active'){
+                                    this.classList.add('active');
+                                    this.style.left= -110 +'px';
+
+                                }
+                                else{
+                                    this.classList.remove('active');
+//
+                                                                     }
+
+
+
+//
+                        }
+                    }
+
+
+
+
+
+
+
+
+
+
+
+        volUp.addEventListener('click', function () {
+
+            if(audio.volume < 1){
+                audio.volume=audio.volume+0.1;
+                progvolume.value =progvolume.value+ 0.1;
+
+            }
+            else{
+                console.log('vol max')
+            }
+        });
+        volDown.addEventListener('click', function () {
+            if(audio.volume > 0.1){
+                audio.volume= audio.volume-0.1;
+                progvolume.value =progvolume.value- 0.1;
+            }
+            else{
+                console.log('vol min')
+            }
+        });
+        play.addEventListener('click', function () {
+
+            if(tumbler===true){
+                audio.play();
+                tumbler = false;
+                play.innerText = 'stop';
+            }
+            else{
+                audio.pause();
+                play.innerText = 'play';
+                tumbler = true;
+            }
+        });
+
+
+    }
+</script>
+</body>
+</html>
